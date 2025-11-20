@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       branch_name:
-        description: 'Name of the release branch (e.g., release/v1.0.0)'
+        description: 'Name of the release branch (e.g., v1.0.0)'
         required: true
         type: string
 
@@ -30,6 +30,6 @@ jobs:
         run: |
           BRANCH_NAME="${{ github.event.inputs.branch_name }}"
           echo "Creating release branch: $BRANCH_NAME"
-          git checkout -b "$BRANCH_NAME"
-          git push origin "$BRANCH_NAME"
-          echo "✅ Branch '$BRANCH_NAME' created from main"
+          git checkout -b "release/$BRANCH_NAME"
+          git push origin "release/$BRANCH_NAME"
+          echo "✅ Branch 'release/$BRANCH_NAME' created from main"
