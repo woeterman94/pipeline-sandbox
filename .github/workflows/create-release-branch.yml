@@ -10,13 +10,18 @@ on:
 
 jobs:
   create-release-branch:
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
 
+      - name: Abort if not run from main branch
+        if: ${{ github.ref_name != 'main' }}
+        run: |
+          echo "❌ This workflow can only be manually triggered from the 'main' branch."
+          exit 1
+          
       - uses: actions/create-github-app-token@v1
         id: app-token
         with:
